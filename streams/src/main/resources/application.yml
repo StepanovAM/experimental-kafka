@@ -1,0 +1,22 @@
+server:
+  port: 9099
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pcl-db
+    username: pcl-db
+    password: 12345678
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-timeout: 15000
+      max-lifetime: 1800000
+      maximum-pool-size: 20
+      pool-name: API-pool
+  kafka:
+    bootstrap-servers: localhost:9092
+    streams:
+      properties:
+        application.id: experimental-app-id
+        group.id: experimental-group
+        num.stream.threads: 1
+#        max.poll.interval.ms: 1000
+#        processing.guarantee: exactly_once

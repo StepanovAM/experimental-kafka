@@ -1,0 +1,12 @@
+server:
+  port: 9090
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      properties:
+        group.id: experimental-second-group
+        auto.offset.reset: earliest
+#        transaction.timeout.ms: 4000
+        isolation.level: read_committed
+#        enable.auto.commit: false

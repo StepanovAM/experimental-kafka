@@ -1,0 +1,16 @@
+server:
+  port: 9091
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pcl-db
+    username: pcl-db
+    password: 12345678
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      #      transaction-id-prefix: someTransactionPrefix
+      properties:
+        #        transaction.timeout.ms: 12000
+        #        enable.idempotence: true
+        key-serializer: org.apache.kafka.common.serialization.StringDeserializer
+        value-serializer: org.apache.kafka.common.serialization.StringDeserializer
