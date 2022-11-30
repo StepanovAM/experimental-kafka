@@ -30,7 +30,7 @@ public class KafkaStreamsConfig {
         Map<String, Object> props = new HashMap<>(kafkaProperties.buildStreamsProperties());
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
-        props.put(StreamsConfig.POLL_MS_CONFIG, 1000);
+//        props.put(StreamsConfig.POLL_MS_CONFIG, 1000);
         return new KafkaStreamsConfiguration(props);
     }
 
@@ -42,7 +42,7 @@ public class KafkaStreamsConfig {
     @Bean
     public KStream<String, String> experimentalStream(StreamsBuilder experimentalStreamsBuilder, DnEventTypeService service) {
         KStream<String, String> stream = experimentalStreamsBuilder.stream("experimental-topic");
-        stream.foreach((key, value) -> service.save(key, value));
+        stream.foreach(service::save);
         return stream;
     }
 }

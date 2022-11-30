@@ -1,10 +1,8 @@
 package com.experimental.kafka.streams.service;
 
-import com.experimental.kafka.streams.domain.DnEventType;
 import com.experimental.kafka.streams.repository.DnEventTypeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -16,10 +14,10 @@ public class DnEventTypeService {
         this.repository = repository;
     }
 
-    @Transactional
+//    @Transactional
     public void save(String id, String desc) {
-        log.info("id: {}, desc: {}", id, desc);
-        repository.save(new DnEventType(id, desc));
-        log.info("Saved");
+        log.info("mockedPhone id: {}, desc: {}", id, desc);
+//        repository.save(new DnEventType(id, desc));
+//        log.info("Saved");
     }
 }

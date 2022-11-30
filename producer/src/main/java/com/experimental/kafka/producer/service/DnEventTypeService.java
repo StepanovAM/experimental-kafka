@@ -11,10 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class DnEventTypeService {
 
-    private final DnEventTypeRepository repository;
-    private final KafkaTemplate kafkaTemplate;
+    int all = 500;
+    int limit = 250;
 
-    public DnEventTypeService(DnEventTypeRepository repository, KafkaTemplate kafkaTemplate) {
+    private final DnEventTypeRepository repository;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+
+    public DnEventTypeService(DnEventTypeRepository repository, KafkaTemplate<String, String> kafkaTemplate) {
         this.repository = repository;
         this.kafkaTemplate = kafkaTemplate;
     }
@@ -22,13 +25,13 @@ public class DnEventTypeService {
     @Transactional
     public void save(String id, String desc) {
         log.info("id: {}, desc: {}", id, desc);
-        repository.save(new DnEventType(id, desc));
+//        repository.save(new DnEventType(id, desc));
 
-        kafkaTemplate.sendDefault(id, desc);
-
-        boolean b = true;
-        if (b) {
-            throw new RuntimeException();
+        for (int i = 0; i < all; i++) {
+            kafkaTemplate.sendDefault(id + " " + i, desc);
+            if (i >= limit) {
+                throw new RuntimeException();
+            }
         }
 
         log.info("Saved");

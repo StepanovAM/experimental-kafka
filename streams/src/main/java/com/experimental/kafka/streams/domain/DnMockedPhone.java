@@ -11,9 +11,9 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class DnEventType {
+public class DnMockedPhone {
 
     @Id
-    private String eventTypeId;
-    private String description;
+    private String phoneNumber;
+    private String mockedCode;
 }

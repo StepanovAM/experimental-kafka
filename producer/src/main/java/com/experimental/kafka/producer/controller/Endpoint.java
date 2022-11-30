@@ -19,8 +19,8 @@ public class Endpoint {
     @Autowired
     KafkaTemplate kafkaTemplate;
 
-    @Autowired
-    KafkaTemplate kafkaTemplate2;
+//    @Autowired
+//    KafkaTemplate kafkaTemplate2;
 
     @Autowired
     DnEventTypeService service;
@@ -28,47 +28,48 @@ public class Endpoint {
 
     @GetMapping("/executeInTransaction")
     public void executeInTransaction(String key, String msg) {
-        service.save(key, msg);
+        kafkaTemplate.sendDefault(key, msg);
+//        service.save(key, msg);
 //        sendInTransactionToKafka(key, msg);
 //        sendInTransactionToKafka2(key, msg);
     }
 
     //    @Transactional(value = "experimentalKafkaTransactionManager", propagation = REQUIRES_NEW)
-    @Async
-    public void sendInTransactionToKafka(String key, String msg) {
-        try {
-            kafkaTemplate.executeInTransaction(operations -> {
-                for (int i = 0; i < 200; i++) {
-                    kafkaTemplate.sendDefault(String.valueOf(i), "FIRST TX" + i);
-                    if (i == 100) {
-                        throw new RuntimeException();
-                    }
-                }
-//                try {
-//                    Thread.sleep(3000);
-//                } catch (InterruptedException e) {
-//                    throw new RuntimeException(e);
+//    @Async
+//    public void sendInTransactionToKafka(String key, String msg) {
+//        try {
+//            kafkaTemplate.executeInTransaction(operations -> {
+//                for (int i = 0; i < 200; i++) {
+//                    kafkaTemplate.sendDefault(String.valueOf(i), "FIRST TX" + i);
+//                    if (i == 100) {
+//                        throw new RuntimeException();
+//                    }
 //                }
-                return null;
-            });
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-    }
-    @Async
-    public void sendInTransactionToKafka2(String key, String msg) {
-        try {
-//            kafkaTemplate2.executeInTransaction(operations -> {
-                for (int i = 0; i < 200; i++) {
-                    kafkaTemplate2.sendDefault(String.valueOf(i), "second kafka template: " + i);
-                    if (i == 100) {
-                        throw new RuntimeException();
-                    }
-                }
+////                try {
+////                    Thread.sleep(3000);
+////                } catch (InterruptedException e) {
+////                    throw new RuntimeException(e);
+////                }
 //                return null;
 //            });
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-    }
+//        } catch (Exception e) {
+//            log.error(e.getMessage());
+//        }
+//    }
+//    @Async
+//    public void sendInTransactionToKafka2(String key, String msg) {
+//        try {
+////            kafkaTemplate2.executeInTransaction(operations -> {
+//                for (int i = 0; i < 200; i++) {
+//                    kafkaTemplate2.sendDefault(String.valueOf(i), "second kafka template: " + i);
+//                    if (i == 100) {
+//                        throw new RuntimeException();
+//                    }
+//                }
+////                return null;
+////            });
+//        } catch (Exception e) {
+//            log.error(e.getMessage());
+//        }
+//    }
 }

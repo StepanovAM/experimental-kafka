@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaConsumerListener {
 
-    @KafkaListener(id = "listener1", topics = "quickstart-events", groupId = "experimental-second-group")
+    @KafkaListener(id = "listener1", topics = "experimental-topic", groupId = "experimental-second-group")
     public void listen(ConsumerRecord<String, String> record) {
         System.out.println("partition: " + record.partition() + " " + record.key() + " " + record.value());
     }

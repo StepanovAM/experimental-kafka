@@ -41,14 +41,7 @@ public class KafkaProducerConfiguration {
 
         DefaultKafkaProducerFactory producerFactory = new DefaultKafkaProducerFactory<>(producerConfigs);
 //        producerFactory.setTransactionIdPrefix(kafkaProperties.getProducer().getTransactionIdPrefix());
-        producerFactory.setTransactionIdPrefix("ONE-TRANSACTION");
-        return producerFactory;
-    }
-
-    @Bean
-    public ProducerFactory<String, String> producerFactory2() {
-        DefaultKafkaProducerFactory producerFactory = new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties());
-//        producerFactory.setTransactionIdPrefix("TWO-TRANSACTION");
+//        producerFactory.setTransactionIdPrefix("ONE-TRANSACTION");
         return producerFactory;
     }
 
@@ -59,12 +52,21 @@ public class KafkaProducerConfiguration {
         return kafkaTemplate;
     }
 
-    @Bean
-    public KafkaTemplate<String, String> kafkaTemplate2(ProducerFactory<String, String> producerFactory2) {
-        KafkaTemplate<String, String> kafkaTemplate = new KafkaTemplate<>(producerFactory2);
-        kafkaTemplate.setDefaultTopic("quickstart-events");
-        return kafkaTemplate;
-    }
+
+
+//    @Bean
+//    public ProducerFactory<String, String> producerFactory2() {
+//        DefaultKafkaProducerFactory producerFactory = new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties());
+////        producerFactory.setTransactionIdPrefix("TWO-TRANSACTION");
+//        return producerFactory;
+//    }
+//
+//    @Bean
+//    public KafkaTemplate<String, String> kafkaTemplate2(ProducerFactory<String, String> producerFactory2) {
+//        KafkaTemplate<String, String> kafkaTemplate = new KafkaTemplate<>(producerFactory2);
+//        kafkaTemplate.setDefaultTopic("quickstart-events");
+//        return kafkaTemplate;
+//    }
 
 //    @Bean
 //    public KafkaTransactionManager experimentalKafkaTransactionManager(ProducerFactory<String, String> producerFactory) {
